@@ -1,3 +1,19 @@
+
+const html = document.querySelector('html');
+const focoBt = document.querySelector('.app__card-button--foco');
+const curtoBt = document.querySelector('.app__card-button--curto');
+const longoBt = document.querySelector('.app__card-button--longo');
+const banner = document.querySelector('.app__image');
+const titulo = document.querySelector('.app__title');
+const musicaFocoInput = document.querySelector('#alternar-musica');
+const musica = new Audio('/sons/luna-rise-part-one.mp3');
+const somDePause = new Audio('/sons/pause.mp3');
+const somDePlay = new Audio('/sons/play.wav');
+somDePlay.volume = 0.1;
+somDePause.volume = 0.1;
+musica.volume = 0.7;
+musica.loop = true;
+
 function alterarContexto(contexto) {
     html.setAttribute('data-contexto', contexto);
     banner.setAttribute('src', `imagens/${contexto}.png`);
@@ -24,13 +40,15 @@ function alterarAtivo(elementosAtivos, elementoParaAtivar) {
     elementoParaAtivar.classList.add('active');
 }
 
-const html = document.querySelector('html');
-const focoBt = document.querySelector('.app__card-button--foco');
-const curtoBt = document.querySelector('.app__card-button--curto');
-const longoBt = document.querySelector('.app__card-button--longo');
-const banner = document.querySelector('.app__image');
-const titulo = document.querySelector('.app__title');
-
+musicaFocoInput.addEventListener('change', e => {
+    if (musica.paused) {
+        somDePlay.play();
+        musica.play();
+    } else {
+        somDePause.play();
+        musica.pause();
+    }
+})
 
 focoBt.addEventListener('click', (e) => {
     alterarContexto('foco');
